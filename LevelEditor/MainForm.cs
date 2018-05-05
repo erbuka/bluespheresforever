@@ -266,9 +266,9 @@ namespace LevelEditor
 
         private void LoadTextureFiles()
         {
-            if (Directory.Exists("textures"))
+            if (Directory.Exists("res/textures"))
             {
-                String[] textureFiles = Directory.GetFiles("textures");
+                String[] textureFiles = Directory.GetFiles("res/textures");
 
                 foreach (String file in textureFiles)
                 {
