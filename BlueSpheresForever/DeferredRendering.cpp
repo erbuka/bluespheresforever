@@ -38,13 +38,13 @@ void DeferredRendering::Configure(const GameConfig& gameConfig) {
 
 	switch(this->quality) {
 		case 0:
-			this->sBlur = manager->createShader("shaders/blur.vert", "shaders/blurLow.frag");
+			this->sBlur = manager->createShader(Global::GetPath(Global::SHADERS_DIR, "blur.vert"), Global::GetPath(Global::SHADERS_DIR, "blurLow.frag"));
 			break;
 		case 1:
-			this->sBlur = manager->createShader("shaders/blur.vert", "shaders/blurMedium.frag");
+			this->sBlur = manager->createShader(Global::GetPath(Global::SHADERS_DIR, "blur.vert"), Global::GetPath(Global::SHADERS_DIR, "blurMedium.frag"));
 			break;
 		case 2:
-			this->sBlur = manager->createShader("shaders/blur.vert", "shaders/blurHigh.frag");
+			this->sBlur = manager->createShader(Global::GetPath(Global::SHADERS_DIR, "blur.vert"), Global::GetPath(Global::SHADERS_DIR, "blurHigh.frag"));
 			break;
 	}
 
