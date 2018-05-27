@@ -21,6 +21,7 @@ namespace Launcher
         public int ShadowQuality;
         public int MusicVolume;
         public int FXVolume;
+        public int IsFirstPerson;
 
         private static GameConfig GetDefaultGameConfig()
         {
@@ -34,6 +35,7 @@ namespace Launcher
             gameConfig.ShadowQuality = 2048; // High
             gameConfig.MusicVolume = 100;
             gameConfig.FXVolume = 100;
+            gameConfig.IsFirstPerson = 0;
             return gameConfig;
         }
 
@@ -54,6 +56,7 @@ namespace Launcher
             writer.Write(config.ShadowQuality);
             writer.Write(config.MusicVolume);
             writer.Write(config.FXVolume);
+            writer.Write(config.IsFirstPerson);
 
             writer.Close();
         }
@@ -62,30 +65,7 @@ namespace Launcher
         {
             GameConfig result = GetDefaultGameConfig();
 
-            string firstTimeFile = Path.GetDirectoryName(Application.ExecutablePath) + "/" + FIRST_TIME_FILE;
             string configFile = Path.GetDirectoryName(Application.ExecutablePath) + "/" + CONFIG_FILE;
-
-            try
-            {
-                BinaryReader reader = new BinaryReader(new FileStream(firstTimeFile, FileMode.Open));
-
-                byte firstTime = reader.ReadByte();
-
-                reader.Close();
-
-                if (firstTime == 0)
-                {
-
-                    BinaryWriter writer = new BinaryWriter(new FileStream(firstTimeFile, FileMode.Create));
-
-                    writer.Write((byte)1);
-
-                    writer.Close();
-
-                    return result;
-                }
-            }
-            catch (FileNotFoundException) { }
 
             try
             {
@@ -105,6 +85,7 @@ namespace Launcher
                 result.ShadowQuality = reader.ReadInt32();
                 result.MusicVolume = reader.ReadInt32();
                 result.FXVolume = reader.ReadInt32();
+                result.IsFirstPerson = reader.ReadInt32();
 
                 reader.Close();
 

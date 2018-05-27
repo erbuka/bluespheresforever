@@ -92,6 +92,7 @@ namespace Global {
 			result.shadowQuality = DEFAULT_SHADOW_QUALITY;
 			result.musicVolume = DEFAULT_MUSIC_VOLUME;
 			result.fxVolume = DEFAULT_MUSIC_VOLUME;
+			result.isFirstPerson = DEFAULT_FIRST_PERSON;
 
 		} else {
 			is.read((char*)&result, sizeof(GameConfig));

@@ -843,7 +843,7 @@ void DeferredRendering::SetViewParamters(ViewParameters params) {
 	this->projStack->push();
 		
 		this->projStack->loadIdentity();
-		this->projStack->translate(this->pView.xCamera, -0.5, this->pView.zCamera);
+		this->projStack->translate(this->pView.cameraPosition.x, this->pView.cameraPosition.y, this->pView.cameraPosition.z);
 		this->projStack->rotate(this->pView.rotateX, 1, 0, 0);
 		this->viewMatrix = mat4(projStack->current());
 

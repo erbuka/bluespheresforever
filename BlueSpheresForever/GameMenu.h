@@ -27,6 +27,7 @@ namespace GameMenu {
 	const int MENU_VIDEO_STEREO3D = 9;
 	const int MENU_VIDEO_SHADOWQUALITY = 10;
 	const int MENU_VIDEO_SHADOWSENABLED = 11;
+	const int MENU_VIDEO_FIRST_PERSON = 19;
 	const int MENU_VIDEO_BACK = 12;
 
 	const int MENU_AUDIO_MUSIC_VOLUME = 13;

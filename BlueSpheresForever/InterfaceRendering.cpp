@@ -387,7 +387,7 @@ void InterfaceRendering::DrawGameMenu(GLfloat dt, bool reset) {
 		}
 
 		// Draw version
-		this->DrawString(0, 0.0f, 1.5f, vec3(1.0f, 1.0f, 1.0f), "V1.0.1c BUILD 137", this->texFontGame); 
+		this->DrawString(0, 0.0f, 1.5f, vec3(1.0f, 1.0f, 1.0f), "V1.0.2 BUILD 140", this->texFontGame); 
 
 		
 	glPopAttrib();

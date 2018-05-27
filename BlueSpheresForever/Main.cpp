@@ -32,12 +32,12 @@ void InitThreading(); // Create threads
 DWORD WINAPI Animate(LPVOID param); // Animation Routine
 
 // Game components
-GameLogic * testAnimation = NULL;
-GameData * testGameData = NULL;
-GameRendering * testRendering = NULL;
-InterfaceRendering * testInterface = NULL;
-AudioEngine * testAudio = NULL;
-DeferredRendering * deferred = NULL;
+GameLogic * gAnimation = NULL;
+GameData * gGameData = NULL;
+GameRendering * gGameRendering = NULL;
+InterfaceRendering * gInterfaceRendering = NULL;
+AudioEngine * gAudioEngine = NULL;
+DeferredRendering * gDeferredRendering = NULL;
 
 // Game menu
 GameMenuParentItem * mainMenuRoot;
@@ -68,7 +68,7 @@ TextureParameters pTexture;
 class MainLogicListener : public GameLogicListener {
 public:
 	void InGameMessage(string message) {
-		testInterface->DisplayInGameMessage(message);
+		gInterfaceRendering->DisplayInGameMessage(message);
 	}
 };
 
@@ -87,10 +87,10 @@ class MainMenuActionListener: public GameMenuActionListener {
 				if(!inputMenu->IsInputMode()) {
 					int stage = StageGenerator::GetStageNumber(inputCodeMenu->GetCode());
 					if(stage == -1) {
-						testAudio->PlayFX(AudioEngine::FX_WRONG);
+						gAudioEngine->PlayFX(AudioEngine::FX_WRONG);
 						inputCodeMenu->SetCode(StageGenerator::GetStageCode(dynamic_cast<GameMenuCurrentLevel*>(GameMenu::GetMenuById(MENU_NEWGAME_START))->GetCurrentLevel()));
 					} else {
-						testAudio->PlayFX(AudioEngine::FX_OK);
+						gAudioEngine->PlayFX(AudioEngine::FX_OK);
 						dynamic_cast<GameMenuCurrentLevel*>(GameMenu::GetMenuById(MENU_NEWGAME_START))->SetCurrentLevel(stage);
 					}
 				}
@@ -106,13 +106,16 @@ class MainMenuActionListener: public GameMenuActionListener {
 				case MENU_VIDEO_SHADOWSENABLED:
 					gameConfig.shadowsEnabled = *((int*)selectMenu->GetSelectedValue());
 					break;
+				case MENU_VIDEO_FIRST_PERSON:
+					gameConfig.isFirstPerson = *((int*)selectMenu->GetSelectedValue());
+					break;
 				case MENU_AUDIO_MUSIC_VOLUME:
 					gameConfig.musicVolume = *((int*)selectMenu->GetSelectedValue());
-					testAudio->Configure(gameConfig);
+					gAudioEngine->Configure(gameConfig);
 					break;
 				case MENU_AUDIO_FX_VOLUME:
 					gameConfig.fxVolume = *((int*)selectMenu->GetSelectedValue());
-					testAudio->Configure(gameConfig);
+					gAudioEngine->Configure(gameConfig);
 					break;
 			}
 		} else if(source->IsLeaf()) {
@@ -124,7 +127,7 @@ class MainMenuActionListener: public GameMenuActionListener {
 				case MENU_OPTIONS_BACK:
 					activeMenu = activeMenu->GetParent();
 					activeMenu->SetSelectedChild(0);
-					testInterface->SetActiveMenu(activeMenu);
+					gInterfaceRendering->SetActiveMenu(activeMenu);
 					Global::StoreGameConfig(gameConfig);
 					break;
 				case MENU_CUSTOM_BACK:
@@ -133,31 +136,31 @@ class MainMenuActionListener: public GameMenuActionListener {
 				case MENU_NEWGAME_BACK:
 					activeMenu = activeMenu->GetParent();
 					activeMenu->SetSelectedChild(0);
-					testInterface->SetActiveMenu(activeMenu);
+					gInterfaceRendering->SetActiveMenu(activeMenu);
 					break;
 				case MENU_NEWGAME_START:
 					WaitForSingleObject(animMutex, INFINITE);
 
-					if(testGameData != NULL)
-						delete testGameData;
-					if(testAnimation != NULL)
-						delete testAnimation;
+					if(gGameData != NULL)
+						delete gGameData;
+					if(gAnimation != NULL)
+						delete gAnimation;
 
-					deferred->Configure(gameConfig);
+					gDeferredRendering->Configure(gameConfig);
 					
-					testGameData = StageGenerator::GetStage(dynamic_cast<GameMenuCodeInputItem*>(GameMenu::GetMenuById(MENU_NEWGAME_INSERTCODE))->GetCode());
+					gGameData = StageGenerator::GetStage(dynamic_cast<GameMenuCodeInputItem*>(GameMenu::GetMenuById(MENU_NEWGAME_INSERTCODE))->GetCode());
 
 
-					testRendering->GetSkyVertexArray()->InitStarColors(testGameData->GetStarsColor(0), testGameData->GetStarsColor(1));
+					gGameRendering->GetSkyVertexArray()->InitStarColors(gGameData->GetStarsColor(0), gGameData->GetStarsColor(1));
 
-					testAnimation = new GameLogic(testGameData, testAudio);
-					testAnimation->AddGameLogicListener(new MainLogicListener());
-					testAnimation->SetPosition(vec2(testGameData->GetStartPoint()));
-					testAnimation->SetDirection(testGameData->GetStartDirection());
+					gAnimation = new GameLogic(gGameData, gAudioEngine);
+					gAnimation->AddGameLogicListener(new MainLogicListener());
+					gAnimation->SetPosition(vec2(gGameData->GetStartPoint()));
+					gAnimation->SetDirection(gGameData->GetStartDirection());
 
 					InitTextures();
 
-					testAudio->StopTitleScreen();
+					gAudioEngine->StopTitleScreen();
 
 					gameMode = Global::MODE_BLUESPHERES;
 					programContext = Global::CTX_GAME;
@@ -171,27 +174,27 @@ class MainMenuActionListener: public GameMenuActionListener {
 					WaitForSingleObject(animMutex, INFINITE);
 
 
-					if(testGameData != NULL)
-						delete testGameData;
-					if(testAnimation != NULL)
-						delete testAnimation;
+					if(gGameData != NULL)
+						delete gGameData;
+					if(gAnimation != NULL)
+						delete gAnimation;
 					
 					int * stage = (int*) dynamic_cast<GameMenuSelectItem*>(GameMenu::GetMenuById(MENU_CUSTOM_SELECTSTAGE))->GetSelectedValue();
 
-					deferred->Configure(gameConfig);
+					gDeferredRendering->Configure(gameConfig);
 
-					testGameData = GameData::LoadData(Global::DATA_DIR + "/" + stageFiles[*stage]);
+					gGameData = GameData::LoadData(Global::DATA_DIR + "/" + stageFiles[*stage]);
 
-					testRendering->GetSkyVertexArray()->InitStarColors(testGameData->GetStarsColor(0), testGameData->GetStarsColor(1));
+					gGameRendering->GetSkyVertexArray()->InitStarColors(gGameData->GetStarsColor(0), gGameData->GetStarsColor(1));
 
-					testAnimation = new GameLogic(testGameData, testAudio);
-					testAnimation->AddGameLogicListener(new MainLogicListener());
-					testAnimation->SetPosition(vec2(testGameData->GetStartPoint()));
-					testAnimation->SetDirection(testGameData->GetStartDirection());
+					gAnimation = new GameLogic(gGameData, gAudioEngine);
+					gAnimation->AddGameLogicListener(new MainLogicListener());
+					gAnimation->SetPosition(vec2(gGameData->GetStartPoint()));
+					gAnimation->SetDirection(gGameData->GetStartDirection());
 
 					InitTextures();
 
-					testAudio->StopTitleScreen();
+					gAudioEngine->StopTitleScreen();
 
 					gameMode = Global::MODE_CUSTOMSTAGE;
 					programContext = Global::CTX_GAME;
@@ -202,7 +205,7 @@ class MainMenuActionListener: public GameMenuActionListener {
 		} else {
 			activeMenu = (GameMenuParentItem*)source;
 			activeMenu->SetSelectedChild(0);
-			testInterface->SetActiveMenu(activeMenu);
+			gInterfaceRendering->SetActiveMenu(activeMenu);
 		}
 	}
 };
@@ -256,16 +259,16 @@ public:
 		} else if(programContext == CTX_GAME) {
 			switch(key) {
 				case VK_UP:
-					testAnimation->SetRunForward();
+					gAnimation->SetRunForward();
 					break;
 				case VK_LEFT:
-					testAnimation->SetRotate(GameLogic::ROTATE_LEFT);
+					gAnimation->SetRotate(GameLogic::ROTATE_LEFT);
 					break;
 				case VK_RIGHT:
-					testAnimation->SetRotate(GameLogic::ROTATE_RIGHT);
+					gAnimation->SetRotate(GameLogic::ROTATE_RIGHT);
 					break;
 				case VK_SPACE:
-					testAnimation->SetJump();
+					gAnimation->SetJump();
 					break;
 			}
 		} else if(programContext == Global::CTX_STAGE_CLEAR) {
@@ -275,7 +278,7 @@ public:
 				
 				int stage = dynamic_cast<GameMenuCurrentLevel*>(GameMenu::GetMenuById(MENU_NEWGAME_START))->GetCurrentLevel();
 
-				if(testGameData->IsPerfect())
+				if(gGameData->IsPerfect())
 					stage += 10;
 				else
 					stage += 1;
@@ -285,20 +288,20 @@ public:
 				dynamic_cast<GameMenuCurrentLevel*>(GameMenu::GetMenuById(MENU_NEWGAME_START))->SetCurrentLevel(stage);
 				dynamic_cast<GameMenuCodeInputItem*>(GameMenu::GetMenuById(MENU_NEWGAME_INSERTCODE))->SetCode(code);
 
-				testAudio->StopStageClear();
+				gAudioEngine->StopStageClear();
 
-				if(testGameData != NULL)
-					delete testGameData;
+				if(gGameData != NULL)
+					delete gGameData;
 
-				if(testAnimation != NULL)
-					delete testAnimation;
+				if(gAnimation != NULL)
+					delete gAnimation;
 
-				deferred->Configure(gameConfig);
-				testGameData = StageGenerator::GetStage(code);
-				testAnimation = new GameLogic(testGameData, testAudio);
-				testAnimation->AddGameLogicListener(new MainLogicListener());
-				testAnimation->SetPosition(vec2(testGameData->GetStartPoint()));
-				testAnimation->SetDirection(testGameData->GetStartDirection());
+				gDeferredRendering->Configure(gameConfig);
+				gGameData = StageGenerator::GetStage(code);
+				gAnimation = new GameLogic(gGameData, gAudioEngine);
+				gAnimation->AddGameLogicListener(new MainLogicListener());
+				gAnimation->SetPosition(vec2(gGameData->GetStartPoint()));
+				gAnimation->SetDirection(gGameData->GetStartDirection());
 
 				InitTextures();
 
@@ -314,8 +317,8 @@ public:
 		viewWidth = width;
 		viewHeight = height;
 		glViewport(0,0,width,height); // viewport resize
-		deferred->ResizeViewport(viewWidth, viewHeight);
-		testInterface->ResizeViewport(viewWidth, viewHeight);
+		gDeferredRendering->ResizeViewport(viewWidth, viewHeight);
+		gInterfaceRendering->ResizeViewport(viewWidth, viewHeight);
 	}
 	void OnClose()  {
 		GLWindow::Dispose();
@@ -381,8 +384,8 @@ DWORD WINAPI Animate(LPVOID param) {
 
 		WaitForSingleObject(animMutex, INFINITE);
 
-		if(programContext == CTX_GAME && testAnimation != NULL) {
-			testAnimation->Animate(dt);
+		if(programContext == CTX_GAME && gAnimation != NULL) {
+			gAnimation->Animate(dt);
 		}
 
 		ReleaseMutex(animMutex);
@@ -410,45 +413,61 @@ void Render() {
 
 	if(programContext == Global::CTX_DISCLAIMER) {
 		glClear(GL_COLOR_BUFFER_BIT);
-		testInterface->DrawGameDisclaimer(dt, false);
+		gInterfaceRendering->DrawGameDisclaimer(dt, false);
 		if(time >= InterfaceRendering::DISCLAIMER_TIME)
 			programContext = Global::CTX_INTRO;
 	} else if(programContext == Global::CTX_INTRO) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		testInterface->DrawGameIntro(dt, false);
+		gInterfaceRendering->DrawGameIntro(dt, false);
 		if(time >= InterfaceRendering::DISCLAIMER_TIME + InterfaceRendering::INTRO_TIME) {
 			programContext = Global::CTX_MAIN_MENU;
 			activeMenu = mainMenuRoot;
 			activeMenu->SetSelectedChild(0);
-			testInterface->SetActiveMenu(activeMenu);
-			testInterface->DrawGameMenu(0, true);
+			gInterfaceRendering->SetActiveMenu(activeMenu);
+			gInterfaceRendering->DrawGameMenu(0, true);
 		}
 	} else if(programContext == Global::CTX_STAGE_CLEAR) {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		int level = dynamic_cast<GameMenuCurrentLevel*>(GameMenu::GetMenuById(MENU_NEWGAME_START))->GetCurrentLevel();
-		testInterface->DrawStageClear(dt, level, testGameData->IsPerfect(), false);
+		gInterfaceRendering->DrawStageClear(dt, level, gGameData->IsPerfect(), false);
 	} else if(programContext == Global::CTX_MAIN_MENU) {
 		glClear(GL_COLOR_BUFFER_BIT);
-		testInterface->DrawGameMenu(dt, false);
+		gInterfaceRendering->DrawGameMenu(dt, false);
 	} else if(programContext == Global::CTX_GAME) {
+
+		// Set up the view
+		if (gameConfig.isFirstPerson)
+		{
+			pView.rotateX = PI / 6;
+			pView.cameraPosition.z = 0;
+			pView.cameraPosition.x = 0;
+			pView.cameraPosition.y = -0.75 - gAnimation->GetSonicHeight();
+		}
+		else
+		{
+			pView.rotateX = Global::CAMERA_ROTATE_X;
+			pView.cameraPosition.z = -2.5;
+			pView.cameraPosition.x = 0;
+			pView.cameraPosition.y = -0.5;
+		}
 
 		// Game Rendering
 
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		deferred->SetLightingParameters(pLighting);
-		deferred->SetProjectionParameters(pProjection);
-		deferred->SetTextureParameters(pTexture);
+		gDeferredRendering->SetLightingParameters(pLighting);
+		gDeferredRendering->SetProjectionParameters(pProjection);
+		gDeferredRendering->SetTextureParameters(pTexture);
 		
 		WaitForSingleObject(animMutex, INFINITE);
 
 		if(gameConfig.shadowsEnabled)
-			deferred->RenderShadowMap(testRendering, testAnimation, testGameData);
+			gDeferredRendering->RenderShadowMap(gGameRendering, gAnimation, gGameData);
 
 
 		if(gameConfig.stereo3D == Global::SWITCH_ON) { // 3D interlaced rendering with stencil buffering
 
-			deferred->InterlaceStencil();
+			gDeferredRendering->InterlaceStencil();
 			
 			glEnable(GL_STENCIL_TEST);
 			glStencilOp(GL_KEEP, GL_KEEP, GL_KEEP);
@@ -460,22 +479,22 @@ void Render() {
 			stack->loadIdentity();
 			stack->Stereo(Global::CAMERA_FOVY, viewWidth / viewHeight, Global::CAMERA_NEAR, Global::CAMERA_FAR, Global::CAMERA_STEREO_IOD / 2, Global::CAMERA_STEREO_SCREENZ);
 
-			pView.xCamera = Global::CAMERA_STEREO_IOD / 2;
+			pView.cameraPosition.x = Global::CAMERA_STEREO_IOD / 2;
 			pView.projectionMatrix = stack->current();
 
-			deferred->SetViewParamters(pView);
+			gDeferredRendering->SetViewParamters(pView);
 
-			deferred->RenderBuffers(testRendering, testAnimation, testGameData);
+			gDeferredRendering->RenderBuffers(gGameRendering, gAnimation, gGameData);
 
-			deferred->RenderAlbedoAndShadows();
+			gDeferredRendering->RenderAlbedoAndShadows();
 		
 			if(gameConfig.shadowsEnabled)
-				deferred->RenderBlurredShadows();
+				gDeferredRendering->RenderBlurredShadows();
 			/*
 			if(gameConfig.quality != 0)
-				deferred->RenderBloomLighting();*/
+				gDeferredRendering->RenderBloomLighting();*/
 		
-			deferred->Render();
+			gDeferredRendering->Render();
 
 			glClear(GL_DEPTH_BUFFER_BIT);
 
@@ -486,23 +505,23 @@ void Render() {
 			stack->loadIdentity();
 			stack->Stereo(Global::CAMERA_FOVY, viewWidth / viewHeight, Global::CAMERA_NEAR, Global::CAMERA_FAR, -Global::CAMERA_STEREO_IOD / 2, Global::CAMERA_STEREO_SCREENZ);
 
-			pView.xCamera = -Global::CAMERA_STEREO_IOD/2;
+			pView.cameraPosition.x = -Global::CAMERA_STEREO_IOD/2;
 			pView.projectionMatrix = stack->current();
 
-			deferred->SetViewParamters(pView);
+			gDeferredRendering->SetViewParamters(pView);
 
-			deferred->RenderBuffers(testRendering, testAnimation, testGameData);
+			gDeferredRendering->RenderBuffers(gGameRendering, gAnimation, gGameData);
 
-			deferred->RenderAlbedoAndShadows();
+			gDeferredRendering->RenderAlbedoAndShadows();
 		
 			if(gameConfig.shadowsEnabled)
-				deferred->RenderBlurredShadows();
+				gDeferredRendering->RenderBlurredShadows();
 
 			/*
 			if(gameConfig.quality != 0)
-				deferred->RenderBloomLighting();*/
+				gDeferredRendering->RenderBloomLighting();*/
 		
-			deferred->Render();
+			gDeferredRendering->Render();
 
 			glDisable(GL_STENCIL_TEST);
 
@@ -510,22 +529,22 @@ void Render() {
 			stack->loadIdentity();
 			stack->perspective(Global::CAMERA_FOVY, viewWidth / viewHeight, Global::CAMERA_NEAR, Global::CAMERA_FAR);
 
-			pView.xCamera = 0;
+			pView.cameraPosition.x = 0;
 			pView.projectionMatrix = stack->current();
 
-			deferred->SetViewParamters(pView);
+			gDeferredRendering->SetViewParamters(pView);
 
-			deferred->RenderBuffers(testRendering, testAnimation, testGameData);
+			gDeferredRendering->RenderBuffers(gGameRendering, gAnimation, gGameData);
 
-			deferred->RenderAlbedoAndShadows();
+			gDeferredRendering->RenderAlbedoAndShadows();
 			
 			if(gameConfig.shadowsEnabled)
-				deferred->RenderBlurredShadows();
+				gDeferredRendering->RenderBlurredShadows();
 
 			if(gameConfig.quality != 0)
-				deferred->RenderBloomLighting();
+				gDeferredRendering->RenderBloomLighting();
 		
-			deferred->Render();
+			gDeferredRendering->Render();
 
 		}
 
@@ -539,37 +558,41 @@ void Render() {
 		glDisable(GL_DEPTH_TEST);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-		testInterface->DrawGameInterface(testGameData->GetCollectedRings(),
-			testGameData->GetObjectCount(GameData::C_BLUESPHERE), dt);
-		testInterface->DrawRingSprite(testAnimation->GetRingSpriteTimer());
+		gInterfaceRendering->DrawGameInterface(gGameData->GetCollectedRings(),
+			gGameData->GetObjectCount(GameData::C_BLUESPHERE), dt);
+
+		if (!gameConfig.isFirstPerson)
+		{
+			gInterfaceRendering->DrawRingSprite(gAnimation->GetRingSpriteTimer());
+		}
 
 		glPopAttrib();
 
-		if(testAnimation->GetGameStatus() == GameLogic::STATUS_STARTING || 
-			testAnimation->GetGameStatus() == GameLogic::STATUS_GAMEOVER ||
-			testAnimation->GetGameStatus() == GameLogic::STATUS_FINISHED) {
-				testInterface->DrawFading(vec3(1,1,1), testAnimation->GetFadingFactor(), GL_ONE);
+		if(gAnimation->GetGameStatus() == GameLogic::STATUS_STARTING || 
+			gAnimation->GetGameStatus() == GameLogic::STATUS_GAMEOVER ||
+			gAnimation->GetGameStatus() == GameLogic::STATUS_FINISHED) {
+				gInterfaceRendering->DrawFading(vec3(1,1,1), gAnimation->GetFadingFactor(), GL_ONE);
 		}
 
-		if(testAnimation->GetGameStatus() == GameLogic::STATUS_FINISHED) {
+		if(gAnimation->GetGameStatus() == GameLogic::STATUS_FINISHED) {
 
 			if(gameMode == Global::MODE_BLUESPHERES) {
 				
-				if(testGameData->IsClear()) {
+				if(gGameData->IsClear()) {
 
-					testInterface->DrawStageClear(0, 0, false, true);
+					gInterfaceRendering->DrawStageClear(0, 0, false, true);
 
 					programContext = CTX_STAGE_CLEAR;
 				} else {
 					programContext = Global::CTX_INTRO;
 					time = InterfaceRendering::DISCLAIMER_TIME;
-					testInterface->DrawGameIntro(0, true);
+					gInterfaceRendering->DrawGameIntro(0, true);
 				}
 			} else {
 
 				programContext = Global::CTX_INTRO;
 				time = InterfaceRendering::DISCLAIMER_TIME;
-				testInterface->DrawGameIntro(0, true);
+				gInterfaceRendering->DrawGameIntro(0, true);
 			}
 		}
 
@@ -581,7 +604,7 @@ void Render() {
 			glDisable(GL_CULL_FACE);
 			glDisable(GL_DEPTH_TEST);
 			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-			testInterface->DrawGameStats(gameStats);
+			gInterfaceRendering->DrawGameStats(gameStats);
 		glPopAttrib();
 	}
 
@@ -614,19 +637,19 @@ void InitGL() {
 	mainMenuRoot = (GameMenuParentItem*)BuildGameMenu(new MainMenuActionListener(), gameConfig, stageFiles);
 	activeMenu = mainMenuRoot;
 
-	testAudio = new AudioEngine();
-	testAudio->Configure(gameConfig);
+	gAudioEngine = new AudioEngine();
+	gAudioEngine->Configure(gameConfig);
 
-	deferred = new DeferredRendering(viewWidth, viewHeight);
-	deferred->ResizeViewport(viewWidth, viewHeight);
+	gDeferredRendering = new DeferredRendering(viewWidth, viewHeight);
+	gDeferredRendering->ResizeViewport(viewWidth, viewHeight);
 
-	testInterface = new InterfaceRendering(testAudio);
-	testInterface->Configure(gameConfig);
-	testInterface->SetActiveMenu(activeMenu);
-	testInterface->ResizeViewport(gameConfig.displayMode.width, gameConfig.displayMode.height);
+	gInterfaceRendering = new InterfaceRendering(gAudioEngine);
+	gInterfaceRendering->Configure(gameConfig);
+	gInterfaceRendering->SetActiveMenu(activeMenu);
+	gInterfaceRendering->ResizeViewport(gameConfig.displayMode.width, gameConfig.displayMode.height);
 
-	testRendering = new GameRendering();
-	testRendering->Configure(gameConfig);
+	gGameRendering = new GameRendering();
+	gGameRendering->Configure(gameConfig);
 	
 	pLighting.position = vec4(0, 5, 0, 1);
 	pLighting.shadowPosition = vec4(0, 3, 0, 1);
@@ -635,10 +658,6 @@ void InitGL() {
 	pLighting.specular = vec4(1.0, 0.95, 0.8, 1);
 	pLighting.attenuation = vec3(0.05, 1.0, 8.0);
 	pLighting.bloomExposure = .4f;
-
-	pView.rotateX = Global::CAMERA_ROTATE_X;
-	pView.zCamera = Global::CAMERA_Z;
-	pView.xCamera = 0;
 
 	pProjection.planeCenter = vec4(0.0, -8.0, 0.0, 1.0);
 	pProjection.planeNormal = vec4(0.0, 1.0, 0.0, 0.0);
@@ -662,11 +681,11 @@ void InitTextures() {
 		texNormalMap = 0;
 	}
 
-	if(testGameData->GetFloorRenderingMode() == GameData::RM_TEXTURE)
-		texChecker = Global::PngTexture((Global::TEXTURE_DIR + "/" + testGameData->GetTexture()).c_str(), GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	if(gGameData->GetFloorRenderingMode() == GameData::RM_TEXTURE)
+		texChecker = Global::PngTexture((Global::TEXTURE_DIR + "/" + gGameData->GetTexture()).c_str(), GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
-	if(testGameData->IsBumpMappingEnabled() == GameData::AS_YES)
-		texNormalMap = Global::PngTexture((Global::TEXTURE_DIR + "/" + testGameData->GetBumpMap()).c_str(), GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
+	if(gGameData->IsBumpMappingEnabled() == GameData::AS_YES)
+		texNormalMap = Global::PngTexture((Global::TEXTURE_DIR + "/" + gGameData->GetBumpMap()).c_str(), GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);
 
 	if(texStarSphere == 0) {
 		texStarSphere = Global::PngTexture((Global::TEXTURE_DIR + "/star1.png").c_str(), GL_LINEAR_MIPMAP_LINEAR, GL_LINEAR);

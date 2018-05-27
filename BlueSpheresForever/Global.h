@@ -63,6 +63,7 @@ namespace Global {
 		int shadowQuality;
 		int musicVolume;
 		int fxVolume;
+		int isFirstPerson;
 	};
 
 	// Game stats
@@ -109,6 +110,7 @@ namespace Global {
 	const int DEFAULT_MUSIC_VOLUME = 100;
 	const int DEFAULT_FXVOLUME = 100;
 	const int DEFAULT_ANISOTROPIC = 4;
+	const int DEFAULT_FIRST_PERSON = 0;
 
 	// PI Constant
 	const float PI = 3.141592f;

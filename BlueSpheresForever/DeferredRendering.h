@@ -34,8 +34,7 @@ struct ProjectionParameters {
 };
 
 struct ViewParameters {
-	GLfloat zCamera;
-	GLfloat xCamera;
+	vec3 cameraPosition;
 	GLfloat rotateX;
 	mat4 projectionMatrix;
 };

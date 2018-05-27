@@ -79,6 +79,7 @@ namespace GameMenu {
 		GameMenuSelectItem * mnuVideoStereo3D = new GameMenuSelectItem(MENU_VIDEO_STEREO3D, "Stereoscopic 3D", onOffOpt);
 		GameMenuSelectItem * mnuVideoShadowsEnabled = new GameMenuSelectItem(MENU_VIDEO_SHADOWSENABLED, "Shadows", onOffOpt);
 		GameMenuSelectItem * mnuVideoShadowQuality = new GameMenuSelectItem(MENU_VIDEO_SHADOWQUALITY, "Shadow Quality", qualityOpt);
+		GameMenuSelectItem * mnuVideoFirstPerson = new GameMenuSelectItem(MENU_VIDEO_FIRST_PERSON, "First person", onOffOpt);
 		GameMenuLeafItem * mnuVideoBack = new GameMenuLeafItem(MENU_OPTIONS_BACK, "Back to Options");
 
 		/* Audio menu */
@@ -89,6 +90,7 @@ namespace GameMenu {
 		mnuVideoStereo3D->SetSelectedValue((char*)&(gameConfig.stereo3D), sizeof(int));
 		mnuVideoShadowsEnabled->SetSelectedValue((char*)&(gameConfig.shadowsEnabled), sizeof(int));
 		mnuVideoShadowQuality->SetSelectedValue((char*)&(gameConfig.shadowQuality), sizeof(int));
+		mnuVideoFirstPerson->SetSelectedValue((char*)&(gameConfig.isFirstPerson), sizeof(int));
 		
 		mnuAudioMusicVolume->SetSelectedValue((char*)&(gameConfig.musicVolume), sizeof(int));
 		mnuAudioFXVolume->SetSelectedValue((char*)&(gameConfig.fxVolume), sizeof(int));
@@ -113,6 +115,7 @@ namespace GameMenu {
 		mnuOptionsVideo->AddChild(mnuVideoStereo3D); mnuVideoStereo3D->AddGameMenuActionListener(listener);
 		mnuOptionsVideo->AddChild(mnuVideoShadowsEnabled); mnuVideoShadowsEnabled->AddGameMenuActionListener(listener);
 		mnuOptionsVideo->AddChild(mnuVideoShadowQuality); mnuVideoShadowQuality->AddGameMenuActionListener(listener);
+		mnuOptionsVideo->AddChild(mnuVideoFirstPerson); mnuVideoFirstPerson->AddGameMenuActionListener(listener);
 		mnuOptionsVideo->AddChild(mnuVideoBack); mnuVideoBack->AddGameMenuActionListener(listener);
 
 		mnuOptionsAudio->AddChild(mnuAudioMusicVolume); mnuAudioMusicVolume->AddGameMenuActionListener(listener);
