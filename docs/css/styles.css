@@ -1,0 +1,50 @@
+@font-face {
+	font-family: "nice";
+	src: url('../fonts/nice.ttf');
+}
+
+body 
+{
+	background-repeat: repeat;
+}
+
+div.bsf-container
+{
+	max-width: 1200px;
+	margin: auto;
+}
+
+div.bsf-menu 
+{
+	width: 150px;
+	font-family: "nice";
+	font-size: 24px;
+	padding-top: 110px;
+}
+
+
+div.bsf-content
+{
+	margin-left: 150px;
+}
+
+h1 {
+	font-family: "nice";
+	font-size: 60px;
+	text-align: center;
+}
+
+h2 {
+	font-family: "nice";
+	font-size: 36px;
+	text-align: center;
+}
+
+h1:before, h2:before, h1:after, h2:after
+{
+	font-family: "Verdana";
+	font-size: 0.3em;
+	content: "\2571\2572\2571\2572\2571\2572\2571\2572";
+	padding: 0 32px 0 32px;
+	vertical-align: middle;
+}
