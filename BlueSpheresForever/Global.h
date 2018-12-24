@@ -19,6 +19,8 @@ using namespace ExtendedBinary3DObject;
 
 namespace Global {
 
+	const string APP_VERSION = "V1.0.3 BUILD 141";
+
 	/* ------------ DATA TYPES ----------------- */
 
 	enum ProgramContext {
