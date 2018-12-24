@@ -126,8 +126,15 @@ namespace Launcher
 
         public override bool Equals(object obj)
         {
-            DisplayMode other = (DisplayMode)obj;
-            return this.Equals(other);
+            try
+            {
+                DisplayMode other = (DisplayMode)obj;
+                return this.Equals(other);
+            }
+            catch(InvalidCastException)
+            {
+                return false;
+            }
         }
 
         public override string ToString()

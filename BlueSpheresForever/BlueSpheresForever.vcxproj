@@ -1,14 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="Debug|Win32">
-      <Configuration>Debug</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
-    <ProjectConfiguration Include="Release|Win32">
-      <Configuration>Release</Configuration>
-      <Platform>Win32</Platform>
-    </ProjectConfiguration>
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
       <Platform>x64</Platform>
@@ -19,47 +11,27 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{47AEC077-787A-45C9-B024-5B813626985C}</ProjectGuid>
+    <ProjectGuid>{C0C0991E-ACA4-5A74-1505-55C7010845F6}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlueSpheresForever</RootNamespace>
-    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
-    <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>MultiByte</CharacterSet>
-  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
-    <PlatformToolset>v140</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
     <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
-  </ImportGroup>
-  <ImportGroup Label="Shared">
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
-  </ImportGroup>
-  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
@@ -68,100 +40,121 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup />
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)glew\include;$(SolutionDir)bass\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)glew\lib\x86;$(SolutionDir)bass\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;bass.lib;bass_fx.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>copy "$(SolutionDir)bass\bin\bass.dll" "$(TargetDir)"
-copy "$(SolutionDir)bass\bin\bass_fx.dll" "$(TargetDir)"</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\bin\Debug\BlueSpheresForever\</OutDir>
+    <IntDir>..\bin-int\Debug\BlueSpheresForever\</IntDir>
+    <TargetName>BlueSpheresForever</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>..\bin\Release\BlueSpheresForever\</OutDir>
+    <IntDir>..\bin-int\Release\BlueSpheresForever\</IntDir>
+    <TargetName>BlueSpheresForever</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\vendor\glew\include;..\vendor\bass\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)glew\include;$(SolutionDir)bass\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)glew\lib\x64;$(SolutionDir)bass\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;bass.lib;bass_fx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>glew32.lib;bass.lib;bass_fx.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\glew\lib;..\vendor\bass\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)bass\bin\x64\bass.dll" "$(TargetDir)"
-copy "$(SolutionDir)bass\bin\x64\bass_fx.dll" "$(TargetDir)"
-
-xcopy "$(SolutionDir)BlueSpheresForever\res" "$(TargetDir)res" /e /i /y</Command>
-    </PostBuildEvent>
-  </ItemDefinitionGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
-      <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)glew\include;$(SolutionDir)bass\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-    </ClCompile>
-    <Link>
-      <EnableCOMDATFolding>true</EnableCOMDATFolding>
-      <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)glew\lib\x86;$(SolutionDir)bass\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;bass.lib;bass_fx.lib;%(AdditionalDependencies)</AdditionalDependencies>
-    </Link>
-    <PostBuildEvent>
-      <Command>copy "$(SolutionDir)bass\bin\bass.dll" "$(TargetDir)"
-copy "$(SolutionDir)bass\bin\bass_fx.dll" "$(TargetDir)"</Command>
+      <Command>IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Debug\$(ProjectName)\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Debug\$(ProjectName)\res &gt; nul)
+IF EXIST ..\vendor\glew\bin\glew32.dll\ (xcopy /Q /E /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Debug\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Debug\$(ProjectName) &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Debug\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Debug\$(ProjectName) &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Debug\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Debug\$(ProjectName) &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\vendor\glew\include;..\vendor\bass\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>None</DebugInformationFormat>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)glew\include;$(SolutionDir)bass\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>GLEW_STATIC;_MBCS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>false</MinimalRebuild>
+      <StringPooling>true</StringPooling>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)glew\lib\x64;$(SolutionDir)bass\lib\x64</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glew32s.lib;opengl32.lib;bass.lib;bass_fx.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;bass.lib;bass_fx.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\vendor\glew\lib;..\vendor\bass\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>copy "$(SolutionDir)bass\bin\x64\bass.dll" "$(TargetDir)"
-copy "$(SolutionDir)bass\bin\x64\bass_fx.dll" "$(TargetDir)"
-
-xcopy "$(SolutionDir)BlueSpheresForever\res" "$(TargetDir)res" /e /i /y</Command>
+      <Command>IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release\$(ProjectName)\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Release\$(ProjectName)\res &gt; nul)
+IF EXIST ..\vendor\glew\bin\glew32.dll\ (xcopy /Q /E /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Release\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Release\$(ProjectName) &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Release\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Release\$(ProjectName) &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Release\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Release\$(ProjectName) &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="AudioEngine.h" />
+    <ClInclude Include="DeferredRendering.h" />
+    <ClInclude Include="Face.h" />
+    <ClInclude Include="GLWindow.h" />
+    <ClInclude Include="GameData.h" />
+    <ClInclude Include="GameLogic.h" />
+    <ClInclude Include="GameLogicListener.h" />
+    <ClInclude Include="GameMenu.h" />
+    <ClInclude Include="GameRendering.h" />
+    <ClInclude Include="Global.h" />
+    <ClInclude Include="InterfaceRendering.h" />
+    <ClInclude Include="LinearInterpolator.h" />
+    <ClInclude Include="Logger.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="MaterialLibrary.h" />
+    <ClInclude Include="MatrixStack.h" />
+    <ClInclude Include="ObjectFile.h" />
+    <ClInclude Include="RandomStageGenerator.h" />
+    <ClInclude Include="Shader.h" />
+    <ClInclude Include="ShaderManager.h" />
+    <ClInclude Include="SkyVertexArray.h" />
+    <ClInclude Include="Sonic.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="StageGenerator.h" />
+    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vecmath.h" />
+    <ClInclude Include="VertexArrayObject.h" />
+    <ClInclude Include="VertexBufferObject.h" />
+    <ClInclude Include="WorldVertexArray.h" />
+    <ClInclude Include="binio.h" />
+    <ClInclude Include="lodepng.h" />
+    <ClInclude Include="wfface.h" />
+    <ClInclude Include="wfmaterial.h" />
+    <ClInclude Include="wfmateriallibrary.h" />
+    <ClInclude Include="wfo.h" />
+    <ClInclude Include="wfobject.h" />
+    <ClInclude Include="xbo.h" />
+  </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AudioEngine.cpp" />
     <ClCompile Include="DeferredRendering.cpp" />
     <ClCompile Include="Face.cpp" />
+    <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="GameData.cpp" />
     <ClCompile Include="GameLogic.cpp" />
     <ClCompile Include="GameMenu.cpp" />
     <ClCompile Include="GameRendering.cpp" />
     <ClCompile Include="Global.cpp" />
-    <ClCompile Include="GLWindow.cpp" />
     <ClCompile Include="InterfaceRendering.cpp" />
     <ClCompile Include="LinearInterpolator.cpp" />
-    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Material.cpp" />
@@ -179,51 +172,13 @@ xcopy "$(SolutionDir)BlueSpheresForever\res" "$(TargetDir)res" /e /i /y</Command
     <ClCompile Include="Vecmath.cpp" />
     <ClCompile Include="VertexArrayObject.cpp" />
     <ClCompile Include="VertexBufferObject.cpp" />
+    <ClCompile Include="WorldVertexArray.cpp" />
+    <ClCompile Include="lodepng.cpp" />
     <ClCompile Include="wfface.cpp" />
     <ClCompile Include="wfmaterial.cpp" />
     <ClCompile Include="wfmateriallibrary.cpp" />
     <ClCompile Include="wfobject.cpp" />
-    <ClCompile Include="WorldVertexArray.cpp" />
     <ClCompile Include="xbo.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="AudioEngine.h" />
-    <ClInclude Include="binio.h" />
-    <ClInclude Include="DeferredRendering.h" />
-    <ClInclude Include="Face.h" />
-    <ClInclude Include="GameData.h" />
-    <ClInclude Include="GameLogic.h" />
-    <ClInclude Include="GameLogicListener.h" />
-    <ClInclude Include="GameMenu.h" />
-    <ClInclude Include="GameRendering.h" />
-    <ClInclude Include="Global.h" />
-    <ClInclude Include="GLWindow.h" />
-    <ClInclude Include="InterfaceRendering.h" />
-    <ClInclude Include="LinearInterpolator.h" />
-    <ClInclude Include="lodepng.h" />
-    <ClInclude Include="Logger.h" />
-    <ClInclude Include="Material.h" />
-    <ClInclude Include="MaterialLibrary.h" />
-    <ClInclude Include="MatrixStack.h" />
-    <ClInclude Include="ObjectFile.h" />
-    <ClInclude Include="RandomStageGenerator.h" />
-    <ClInclude Include="Shader.h" />
-    <ClInclude Include="ShaderManager.h" />
-    <ClInclude Include="SkyVertexArray.h" />
-    <ClInclude Include="Sonic.h" />
-    <ClInclude Include="Sprite.h" />
-    <ClInclude Include="StageGenerator.h" />
-    <ClInclude Include="Timer.h" />
-    <ClInclude Include="Vecmath.h" />
-    <ClInclude Include="VertexArrayObject.h" />
-    <ClInclude Include="VertexBufferObject.h" />
-    <ClInclude Include="wfface.h" />
-    <ClInclude Include="wfmaterial.h" />
-    <ClInclude Include="wfmateriallibrary.h" />
-    <ClInclude Include="wfo.h" />
-    <ClInclude Include="wfobject.h" />
-    <ClInclude Include="WorldVertexArray.h" />
-    <ClInclude Include="xbo.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
