@@ -1,16 +1,16 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "vecmath.h"
 
-using namespace std;
 
 namespace glutils {
 
 	class Face {
 	public:
-		string getMaterial();
-		string getGroup();
+		std::string getMaterial();
+		std::string getGroup();
 
 		int GetVertexIndex(int vertex);
 		int GetNormalIndex(int vertex);
@@ -24,19 +24,19 @@ namespace glutils {
 
 		int verticesCount;
 
-		string group;
-		string material;
+		std::string group;
+		std::string material;
 
-		vector<int> vertexIndices;
-		vector<int> normalIndices;
-		vector<int> texCoordIndices;
+		std::vector<int> vertexIndices;
+		std::vector<int> normalIndices;
+		std::vector<int> texCoordIndices;
 
 		void addVertex(int iVertex);
 		void addVertex(int iVertex, int iTexCoords);
 		void addVertex(int iVertex, int iTexCoords, int iNormal);
 
-		void setMaterial(string m);
-		void setGroup(string g);
+		void setMaterial(std::string m);
+		void setGroup(std::string g);
 
 		friend class ObjectFile;
 	};

@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>LevelEditor</RootNamespace>
     <AssemblyName>LevelEditor</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
@@ -67,7 +67,6 @@
       <DependentUpon>GameStagesForm.cs</DependentUpon>
       <SubType>DesignerType</SubType>
     </EmbeddedResource>
-    <None Include="LevelEditor.csproj" />
     <Compile Include="MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Dependency</SubType>

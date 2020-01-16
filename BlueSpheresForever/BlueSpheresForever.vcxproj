@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -15,20 +15,20 @@
     <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>BlueSpheresForever</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>MultiByte</CharacterSet>
-    <PlatformToolset>v141</PlatformToolset>
+    <PlatformToolset>v142</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -71,9 +71,9 @@
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Debug\$(ProjectName)\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Debug\$(ProjectName)\res &gt; nul)
-IF EXIST ..\vendor\glew\bin\glew32.dll\ (xcopy /Q /E /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Debug\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Debug\$(ProjectName) &gt; nul)
-IF EXIST ..\vendor\bass\bin\bass.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Debug\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Debug\$(ProjectName) &gt; nul)
-IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Debug\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Debug\$(ProjectName) &gt; nul)</Command>
+IF EXIST ..\vendor\glew\bin\glew32.dll\ (xcopy /Q /E /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Debug\$(ProjectName)\ &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Debug\$(ProjectName)\ &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Debug\$(ProjectName)\ &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Debug\$(ProjectName)\ &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Debug\$(ProjectName)\ &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Debug\$(ProjectName)\ &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -99,9 +99,9 @@ IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\b
     </Link>
     <PostBuildEvent>
       <Command>IF EXIST res\ (xcopy /Q /E /Y /I res ..\bin\Release\$(ProjectName)\res &gt; nul) ELSE (xcopy /Q /Y /I res ..\bin\Release\$(ProjectName)\res &gt; nul)
-IF EXIST ..\vendor\glew\bin\glew32.dll\ (xcopy /Q /E /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Release\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Release\$(ProjectName) &gt; nul)
-IF EXIST ..\vendor\bass\bin\bass.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Release\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Release\$(ProjectName) &gt; nul)
-IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Release\$(ProjectName) &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Release\$(ProjectName) &gt; nul)</Command>
+IF EXIST ..\vendor\glew\bin\glew32.dll\ (xcopy /Q /E /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Release\$(ProjectName)\ &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\glew\bin\glew32.dll  ..\bin\Release\$(ProjectName)\ &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Release\$(ProjectName)\ &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass.dll  ..\bin\Release\$(ProjectName)\ &gt; nul)
+IF EXIST ..\vendor\bass\bin\bass_fx.dll\ (xcopy /Q /E /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Release\$(ProjectName)\ &gt; nul) ELSE (xcopy /Q /Y /I ..\vendor\bass\bin\bass_fx.dll  ..\bin\Release\$(ProjectName)\ &gt; nul)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

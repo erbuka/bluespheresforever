@@ -35,9 +35,9 @@ namespace WaveFront {
 		this->AddVertex(iVertex, -1, -1);
 	}
 
-	void WFFace::SetGroup(string g) { group = g; }
-	void WFFace::SetMaterial(string m) { material = m;}
+	void WFFace::SetGroup(std::string g) { group = g; }
+	void WFFace::SetMaterial(std::string m) { material = m;}
 
-	string WFFace::GetGroup() { return group;}
-	string WFFace::GetMaterial() { return material; }
+	std::string WFFace::GetGroup() { return group;}
+	std::string WFFace::GetMaterial() { return material; }
 }

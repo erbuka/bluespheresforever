@@ -28,9 +28,9 @@ namespace glutils {
 		addVertex(iVertex, -1, -1);
 	}
 
-	void Face::setGroup(string g) { group = g; }
-	void Face::setMaterial(string m) { material = m;}
+	void Face::setGroup(std::string g) { group = g; }
+	void Face::setMaterial(std::string m) { material = m;}
 
-	string Face::getGroup() { return group;}
-	string Face::getMaterial() { return material; }
+	std::string Face::getGroup() { return group;}
+	std::string Face::getMaterial() { return material; }
 }

@@ -46,6 +46,48 @@
             ((System.ComponentModel.ISupportInitialize)(pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label3.Location = new System.Drawing.Point(2, 197);
+            label3.Name = "label3";
+            label3.Size = new System.Drawing.Size(88, 14);
+            label3.TabIndex = 17;
+            label3.Text = "Anisotropic Filter";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label2.Location = new System.Drawing.Point(161, 199);
+            label2.Name = "label2";
+            label2.Size = new System.Drawing.Size(40, 14);
+            label2.TabIndex = 13;
+            label2.Text = "Quality";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            label1.Location = new System.Drawing.Point(-1, 147);
+            label1.Name = "label1";
+            label1.Size = new System.Drawing.Size(71, 14);
+            label1.TabIndex = 11;
+            label1.Text = "Display Mode";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = System.Drawing.Color.Black;
+            pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            pictureBox1.Image = global::Launcher.Properties.Resources.logo;
+            pictureBox1.Location = new System.Drawing.Point(2, 3);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new System.Drawing.Size(305, 130);
+            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 10;
+            pictureBox1.TabStop = false;
+            // 
             // cmoWindowed
             // 
             this.cmoWindowed.AutoSize = true;
@@ -72,16 +114,6 @@
             this.cmoAnisotropicFilter.Name = "cmoAnisotropicFilter";
             this.cmoAnisotropicFilter.Size = new System.Drawing.Size(143, 22);
             this.cmoAnisotropicFilter.TabIndex = 18;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label3.Location = new System.Drawing.Point(2, 197);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(88, 14);
-            label3.TabIndex = 17;
-            label3.Text = "Anisotropic Filter";
             // 
             // cmdExit
             // 
@@ -119,16 +151,6 @@
             this.cmoQuality.Size = new System.Drawing.Size(143, 22);
             this.cmoQuality.TabIndex = 14;
             // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label2.Location = new System.Drawing.Point(161, 199);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(40, 14);
-            label2.TabIndex = 13;
-            label2.Text = "Quality";
-            // 
             // cmoDisplayMode
             // 
             this.cmoDisplayMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -138,28 +160,6 @@
             this.cmoDisplayMode.Name = "cmoDisplayMode";
             this.cmoDisplayMode.Size = new System.Drawing.Size(143, 22);
             this.cmoDisplayMode.TabIndex = 12;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            label1.Location = new System.Drawing.Point(-1, 147);
-            label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(71, 14);
-            label1.TabIndex = 11;
-            label1.Text = "Display Mode";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.BackColor = System.Drawing.Color.Black;
-            pictureBox1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            pictureBox1.Image = global::Launcher.Properties.Resources.logo;
-            pictureBox1.Location = new System.Drawing.Point(2, 3);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new System.Drawing.Size(305, 130);
-            pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 10;
-            pictureBox1.TabStop = false;
             // 
             // LauncherForm
             // 
@@ -181,7 +181,7 @@
             this.MaximizeBox = false;
             this.Name = "LauncherForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "LauncherForm";
+            this.Text = "Blue Spheres Forever";
             ((System.ComponentModel.ISupportInitialize)(pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

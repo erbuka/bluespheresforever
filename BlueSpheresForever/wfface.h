@@ -1,16 +1,16 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include "vecmath.h"
 
-using namespace std;
 
 namespace WaveFront {
 
 	class WFFace {
 	public:
-		string GetMaterial();
-		string GetGroup();
+		std::string GetMaterial();
+		std::string GetGroup();
 
 		int GetVertexIndex(int vertex);
 		int GetNormalIndex(int vertex);
@@ -26,19 +26,19 @@ namespace WaveFront {
 
 		int verticesCount;
 
-		string group;
-		string material;
+		std::string group;
+		std::string material;
 
-		vector<int> vertexIndices;
-		vector<int> normalIndices;
-		vector<int> texCoordIndices;
+		std::vector<int> vertexIndices;
+		std::vector<int> normalIndices;
+		std::vector<int> texCoordIndices;
 
 		void AddVertex(int iVertex);
 		void AddVertex(int iVertex, int iTexCoords);
 		void AddVertex(int iVertex, int iTexCoords, int iNormal);
 
-		void SetMaterial(string m);
-		void SetGroup(string g);
+		void SetMaterial(std::string m);
+		void SetGroup(std::string g);
 
 		friend class WFObject;
 	};
